@@ -15,8 +15,8 @@
         uses: cloudposse/github-action-docker-build-push@main
         with:
           registry: registry.hub.docker.com
-          organization: "${{ github.event.repository.owner.login }}"
-          repository: "${{ github.event.repository.name }}"
+          organization: "aniketthakur"
+          repository: "python-flask"
           login: "${{ secrets.DOCKER_USERNAME }}"
           password: "${{ secrets.DOCKER_PASSWORD }}"
           platforms: linux/amd64,linux/arm64
