@@ -13,17 +13,12 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v2  # Checks out your code
 
-    - name: Set up Docker Buildx
-      run: |
-        curl -fsSL https://get.docker.com | sh
-        docker buildx create --use
-      shell: bash
+    - name: docker login
+      uses: docker login -u ${{ secrets.DOCKER_USERNAME}} -p ${{ secrets.DOCKER_PASSWORD}}
 
-    - name: Build and Push Docker Image
-      env:
-        DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: |
-        docker buildx build --push --tag ${{ secrets.DOCKER_USERNAME }}/aniketthakur/python-flask:0.0.1 .
-      shell: bash
+    - name: docker image build
+      uses: docker build -t ${{ secrets.DOCKER_USERNAME}}/aniketthakur/python-flask:0.0.2
+
+    - name: push to dockerhub
+      uses: docker push ${{ secrets.DOCKER_USERNAME}}/aniketthakur/python-flask:0.0.2
 
