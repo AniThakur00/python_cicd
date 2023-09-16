@@ -1,0 +1,19 @@
+  name: Push into main branch
+  on:
+    push:
+      branches: [ main ]
+
+  jobs:
+    context:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        id: build
+        run: |
+        docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+        docker build -t aniketthakur/python-flask:0.0.1 .
+        docker push aniketthakur/python-flask:0.0.1
+        
